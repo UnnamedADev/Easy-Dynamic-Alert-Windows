@@ -1,0 +1,17 @@
+#alertHolder
+{
+    position: fixed; 
+    right: 0px;
+    width: 20%;
+    height: 100%;
+    background: rgba(200,0,0,0.3);
+    z-index: 20;
+}
+.alert {
+    float:right;
+    width: 90%;
+    margin-right: 5%; margin-top: 20px;}
+.alert p {
+    margin: 15px; 
+    color: white;
+    font-size: 0.8em;}
