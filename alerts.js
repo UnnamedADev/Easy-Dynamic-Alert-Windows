@@ -1,6 +1,8 @@
 "use strict";
 
 $(document).ready(function() {
+    //vars
+    var duration = 200;
     
     //main
     buildAlertHolder();
@@ -60,9 +62,13 @@ $(document).ready(function() {
         newAlert.appendChild(newParagraph);
         newParagraph.innerHTML = content;
         
+        $(newAlert).slideDown(duration);
+        
         setTimeout(function(){
-            newAlert.removeChild(newParagraph);
-            myHolder.removeChild(newAlert);
+            $(newAlert).slideUp(duration, function(){
+                newAlert.removeChild(newParagraph);
+                myHolder.removeChild(newAlert);
+            });
         },expire);
     }
 });
