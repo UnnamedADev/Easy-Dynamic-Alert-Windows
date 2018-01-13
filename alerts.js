@@ -31,7 +31,6 @@ $(document).ready(function() {
     
     function buildAlert(type,content,expire){
         expire *= 1000;
-        console.log(expire);
         var myHolder = document.getElementById("alertHolder");
        
         var newAlert = document.createElement("div");
