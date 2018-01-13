@@ -21,28 +21,33 @@ $(document).ready(function() {
             allReactors[i].addEventListener("click", function(){
                 var type = this.getAttribute("alertType");
                 var content = this.getAttribute("alertContent");
-                buildAlert(type, content);
+                var expire = this.getAttribute("alertExpire");
+                buildAlert(type, content, expire);
             });
         }
     }
     
-    function buildAlert(type,content){
-
+    function buildAlert(type,content,expire){
+        expire *= 1000;
+        console.log(expire);
         var myHolder = document.getElementById("alertHolder");
        
         var newAlert = document.createElement("div");
         newAlert.classList.add("alert");
         myHolder.appendChild(newAlert);
-        var alertColor;
+        var alertColor, borderColor;
         switch(type){
             case "neutral":
-                alertColor="yellow";
+                alertColor = "#ad8201";
+                borderColor = "#c6a641";
                 break;
             case "negative":
-                alertColor = "red";
+                alertColor = "#a50000";
+                borderColor = "#ad3e3e";
                 break;
             case "positive":
-                alertColor = "green";
+                alertColor = "#2c8400";
+                borderColor = "#489323";
                 break;
             default:
                 window.alert("#ERROR: \n-Invalid alert type.\n -Check in HTML code element that provides this event for any errors in name of 'alertType' attribute. This attribute can be only: neutral / positive / negative.")
@@ -50,9 +55,14 @@ $(document).ready(function() {
         }
 
         newAlert.style.backgroundColor = alertColor;
-        
+        newAlert.style.borderColor = borderColor;
         var newParagraph = document.createElement("p");
         newAlert.appendChild(newParagraph);
         newParagraph.innerHTML = content;
+        
+        setTimeout(function(){
+            newAlert.removeChild(newParagraph);
+            myHolder.removeChild(newAlert);
+        },expire);
     }
 });
