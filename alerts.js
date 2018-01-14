@@ -61,7 +61,19 @@ $(document).ready(function() {
         newAlert.appendChild(newParagraph);
         newParagraph.innerHTML = content;
         
+        var newCounter = document.createElement("p");
+        newCounter.classList.add("counter");
+        newAlert.appendChild(newCounter);
+        
+        var newBar = document.createElement("div");
+        newBar.classList.add("bar");
+        newAlert.appendChild(newBar);
+        
         $(newAlert).slideDown(duration);
+        
+        $(newBar).animate({
+            width: "0%"
+        },expire,"linear");
         
         setTimeout(function(){
             $(newAlert).slideUp(duration, function(){
