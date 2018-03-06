@@ -2,8 +2,8 @@
 
 $(document).ready(function() {
     //vars
-    var duration = 200;
-    
+    var effectDuration = 200;
+    var timeDuration = 200;
     //main
     buildAlertHolder();
     addEvents();
@@ -61,13 +61,43 @@ $(document).ready(function() {
         newAlert.appendChild(newParagraph);
         newParagraph.innerHTML = content;
         
-        $(newAlert).slideDown(duration);
+        var newCounter = document.createElement("p");
+        newCounter.classList.add("counter");
+        newAlert.appendChild(newCounter);
+        
+        var newBar = document.createElement("div");
+        newBar.classList.add("bar");
+        newAlert.appendChild(newBar);
+        
+        $(newAlert).slideDown(effectDuration);
+        
+        var realWidth = newBar.offsetWidth;
+        $(newBar).animate({
+            width: "0%"
+        },expire,"linear");
+        
+
+        checkProgress(newBar, newCounter, realWidth, expire);
         
         setTimeout(function(){
-            $(newAlert).slideUp(duration, function(){
+            $(newAlert).slideUp(effectDuration, function(){
                 newAlert.removeChild(newParagraph);
                 myHolder.removeChild(newAlert);
             });
         },expire);
+    }
+    
+    function checkProgress(myObj, myTarget, realWidth, expireTime){
+        var percent = myObj.offsetWidth / realWidth;
+        var displayTime = percent * expireTime / 1000;
+        displayTime = displayTime.toFixed(2);
+        console.log(displayTime);
+        myTarget.innerHTML = displayTime;
+        if(displayTime==0){
+            return;
+        }
+        setTimeout(function(){
+            checkProgress(myObj, myTarget, realWidth, expireTime);
+        },timeDuration)
     }
 });
